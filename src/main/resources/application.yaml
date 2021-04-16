@@ -1,1 +1,8 @@
+spring:
+  application:
+    name: weflux
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/postgres?schema=anime
+    password: root
+    username: root
 

@@ -31,13 +31,16 @@ public class AnimeService {
 
     public Mono<Void> update(Anime anime) {
         return repository.findById(anime.getId())
-                .map(result -> anime.withId(result.getId()))
                 .flatMap(repository::save)
-                .thenEmpty(Mono.empty());
+                .then();
     }
 
     private <T> Mono<T> monoResponseStatusNotFoundException() {
         return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Anime not found"));
     }
 
+    public Mono<Void> delete(int id) {
+        return findById(id)
+                .flatMap(repository::delete);
+    }
 }

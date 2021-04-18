@@ -6,3 +6,9 @@ spring:
     password: root
     username: root
 
+logging:
+  level:
+    org:
+      springframework:
+        r2dbc: DEBUG
+

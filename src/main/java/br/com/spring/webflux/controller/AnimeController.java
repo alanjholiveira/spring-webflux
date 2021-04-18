@@ -21,11 +21,13 @@ public class AnimeController {
     private final AnimeService service;
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public Flux<Anime> listAll() {
         return service.findAll();
     }
 
     @GetMapping("{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Mono<Anime> findById(@PathVariable int id) {
         return service.findById(id);
     }

@@ -30,7 +30,7 @@ public class AnimeService {
     }
 
     public Mono<Void> update(Anime anime) {
-        return repository.findById(anime.getId())
+        return findById(anime.getId())
                 .flatMap(repository::save)
                 .then();
     }

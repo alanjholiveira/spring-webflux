@@ -22,8 +22,6 @@ import java.util.List;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @ExtendWith(SpringExtension.class)
 public class AnimeServiceTest {
 
@@ -48,11 +46,11 @@ public class AnimeServiceTest {
         BDDMockito.when(repository.findById(ArgumentMatchers.anyInt()))
                 .thenReturn(Mono.just(anime));
 
-        BDDMockito.when(repository.save(AnimeCreator.createAnimeToBeSave()))
+        BDDMockito.when(repository.save(AnimeCreator.createAnimeToBeSaved()))
                 .thenReturn(Mono.just(anime));
 
         BDDMockito.when(repository
-                .saveAll(List.of(AnimeCreator.createAnimeToBeSave(), AnimeCreator.createAnimeToBeSave())))
+                .saveAll(List.of(AnimeCreator.createAnimeToBeSaved(), AnimeCreator.createAnimeToBeSaved())))
                 .thenReturn(Flux.just(anime, anime));
 
         BDDMockito.when(repository.delete(ArgumentMatchers.any(Anime.class)))
@@ -110,7 +108,7 @@ public class AnimeServiceTest {
     @Test
     @DisplayName("save creates an anime when successful")
     void save_CreatesAnime_WhenSuccessful() {
-        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSave();
+        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSaved();
 
         StepVerifier.create(service.save(animeToBeSaved))
                 .expectSubscription()
@@ -121,7 +119,7 @@ public class AnimeServiceTest {
     @Test
     @DisplayName("saveAll creates a list of anime when successful")
     void saveAll_CreatesListOfAnime_WhenSuccessful() {
-        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSave();
+        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSaved();
 
         StepVerifier.create(service.saveAll(List.of(animeToBeSaved, animeToBeSaved)))
                 .expectSubscription()
@@ -132,7 +130,7 @@ public class AnimeServiceTest {
     @Test
     @DisplayName("saveAll returns Mono error when on of the objects in the list contains null or empty name")
     void saveAll_ReturnsMonoError_WhenContainsInvalidName() {
-        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSave();
+        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSaved();
 
         BDDMockito.when(repository
                 .saveAll(ArgumentMatchers.anyIterable()))

@@ -4,7 +4,7 @@ import br.com.spring.webflux.domain.Anime;
 
 public class AnimeCreator {
 
-    public static Anime createAnimeToBeSave() {
+    public static Anime createAnimeToBeSaved() {
         return Anime.builder()
                 .name("Tensei Shitara Slime Datta Ken")
                 .build();

@@ -1,7 +1,6 @@
 package br.com.spring.webflux.controller;
 
 import br.com.spring.webflux.domain.Anime;
-import br.com.spring.webflux.repository.AnimeRepository;
 import br.com.spring.webflux.service.AnimeService;
 import br.com.spring.webflux.util.AnimeCreator;
 import org.junit.jupiter.api.*;
@@ -11,7 +10,6 @@ import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.web.server.ResponseStatusException;
 import reactor.blockhound.BlockHound;
 import reactor.blockhound.BlockingOperationError;
 import reactor.core.publisher.Flux;
@@ -22,8 +20,6 @@ import reactor.test.StepVerifier;
 import java.util.List;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 class AnimeControllerTest {
@@ -49,11 +45,11 @@ class AnimeControllerTest {
         BDDMockito.when(service.findById(ArgumentMatchers.anyInt()))
                 .thenReturn(Mono.just(anime));
 
-        BDDMockito.when(service.save(AnimeCreator.createAnimeToBeSave()))
+        BDDMockito.when(service.save(AnimeCreator.createAnimeToBeSaved()))
                 .thenReturn(Mono.just(anime));
 
         BDDMockito.when(service
-                .saveAll(List.of(AnimeCreator.createAnimeToBeSave(), AnimeCreator.createAnimeToBeSave())))
+                .saveAll(List.of(AnimeCreator.createAnimeToBeSaved(), AnimeCreator.createAnimeToBeSaved())))
                 .thenReturn(Flux.just(anime, anime));
 
         BDDMockito.when(service.delete(ArgumentMatchers.anyInt()))
@@ -100,7 +96,7 @@ class AnimeControllerTest {
     @Test
     @DisplayName("save creates an anime when successful")
     void save_CreatesAnime_WhenSuccessful() {
-        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSave();
+        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSaved();
 
         StepVerifier.create(controller.save(animeToBeSaved))
                 .expectSubscription()
@@ -111,7 +107,7 @@ class AnimeControllerTest {
     @Test
     @DisplayName("saveBatch creates a list of anime when successful")
     void saveBatch_CreatesListOfAnime_WhenSuccessful() {
-        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSave();
+        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSaved();
 
         StepVerifier.create(controller.saveBatch(List.of(animeToBeSaved, animeToBeSaved)))
                 .expectSubscription()

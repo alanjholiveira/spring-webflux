@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Builder
 @With
-@Table("anime")
+@Table("tb_anime")
 public class Anime {
 
     @Id
